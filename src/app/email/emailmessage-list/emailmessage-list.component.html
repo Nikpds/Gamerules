@@ -1,0 +1,33 @@
+<div class="columns is-marginless is-multiline is-centered">
+  <div class="column is-10">
+    <div class="card">
+      <div class="card-content">
+        <div class="button is-small is-primary" [routerLink]="['/email','message','new']">Νέο μήνυμα</div>
+      </div>
+    </div>
+  </div>
+  <div class="column is-10">
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th class="aa">AA</th>
+          <th>Τίτλος</th>
+          <th>Μήνυμα</th>
+          <th class="actions">Ενέργειες</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of messages;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{m.title}}</td>
+          <td>{{m.message}}</td>
+          <td>
+            <a class="button is-warning is-small has-text-white" [routerLink]="['/email','message',m.id]">επεξεργασία</a>
+            <a class="button is-danger is-small" (click)="customModal.open(m,deleteMessage)">διαγραφή</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-confirm-modal (modalAction)="modalAction($event)" #customModal></app-confirm-modal>

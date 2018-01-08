@@ -1,0 +1,48 @@
+<div class="columns is-marginless is-multiline">
+  <div class="column is-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="field has-addons has-addons-right ">
+          <p class="control">
+            <input class="is-small input" type="text" placeholder="αναζήτη πελάτη">
+          </p>
+          <p class="control">
+            <a class="button is-small is-primary">
+              Εύρεση
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>AA</th>
+          <th>Επίθετο</th>
+          <th>Όνομα</th>
+          <th>Email</th>
+          <th>Τηλέφωνο</th>
+          <th>Φαξ</th>
+          <th>Newsletter</th>
+          <th>Ενέργειες</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of customers;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{c.lastname}}</td>
+          <td>{{c.firstname}}</td>
+          <td>{{c.email}}</td>
+          <td>{{c.telephone}}</td>
+          <td>{{c.fax}}</td>
+          <td>{{c.newsletter}}</td>
+          <td>
+            <a class="button is-info is-small" [routerLink]="['/customer',c.customer_id,'details']">Kαρτέλα</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

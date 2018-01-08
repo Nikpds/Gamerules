@@ -1,0 +1,59 @@
+<div class="modal" [ngClass]="{'is-active': openEmailSender}" *ngIf="messages.length > 0 && email">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Αποστολή Email στον πελάτη {{email.fullname}}
+        </p>
+        <a class="card-header-icon" (click)="close()">
+          <div class="delete"></div>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <div class="field is-horizontal">
+            <div class="field-label is-small">
+              <label class="label">Μήνυμα</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <div class="select is-fullwidth is-small">
+                    <select [(ngModel)]="email.message">
+                      <option *ngFor="let m of messages;let i = index" [value]="m.message">{{m.title}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-small">
+              <label class="label">Τίτλος email</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control  is-expanded">
+                  <input class="input is-small" [(ngModel)]="email.subject" type="text" placeholder="Προαιρετικό">
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small" (click)="close()">
+                Άκυρο
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-success"(click)="sendEmail()">
+                Αποστολή
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

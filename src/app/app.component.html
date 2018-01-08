@@ -1,0 +1,11 @@
+<app-navbar *ngIf="loggedIn"></app-navbar>
+
+<div class="columns is-gapless">
+    <div class="column is-narrow" *ngIf="loggedIn">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="column keep-overflow">
+        <router-outlet></router-outlet>
+    </div>
+    <ng-snotify></ng-snotify>
+</div>

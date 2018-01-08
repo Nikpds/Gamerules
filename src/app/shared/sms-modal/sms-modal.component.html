@@ -1,0 +1,43 @@
+<div class="modal" [ngClass]="{'is-active': openSmsSender}" *ngIf="sms">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Αποστολή Sms στον πελάτη {{sms.fullname}}
+        </p>
+        <a class="card-header-icon" (click)="close()">
+          <div class="delete"></div>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <div class="field is-horizontal">
+            <div class="field-label is-small">
+              <label class="label">Μήνυμα Sms</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control  is-expanded">
+                  <input class="input is-small" [(ngModel)]="sms.message" type="text" placeholder="">
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-small" (click)="close()">
+                Άκυρο
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-small is-success"(click)="sendSms()">
+                Αποστολή
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

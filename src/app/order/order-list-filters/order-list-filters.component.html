@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-content is-clearfix">
+    <a class="button is-small is-info" (click)="getOrders()">
+      <i class="fa fa-refresh"></i>
+    </a>
+    <span class="field">
+      <a class="button is-small is-dark" (click)="data.filters.sortOrder = !data.filters.sortOrder">
+        <i class="fa fa-sort-amount-asc" [ngClass]="{'fa-flip-vertical':!data.filters.sortOrder}" aria-hidden="true"></i>
+      </a>
+      <div class="select is-small">
+        <select [(ngModel)]="data.filters.sortField">
+          <option value="date_added">Ημερομηνία</option>
+          <option value="lastname">Αλφαβατικά</option>
+          <option value="order_status_id">Κατάσταση</option>
+        </select>
+      </div>
+    </span>
+    <span class="field">
+      <div class="select is-small">
+        <select [(ngModel)]="data.filters.results">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="0">Όλα</option>
+        </select>
+      </div>
+      <span class="subtitle is-6">εγγραφές/σελίδα</span>
+    </span>
+    <div class="dropdown" [ngClass]="{'is-active': openFilterMenu}">
+      <div class="dropdown-trigger">
+        <button class="button is-small" (click)="filterMenu()" aria-haspopup="true" aria-controls="dropdown-menu7">
+          <span>
+            <i class="fa fa-filter" aria-hidden="true"></i> Φίλτρα</span>
+          <span class="icon is-small">
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu7" role="menu">
+        <div class="dropdown-content">
+          <div class="field">
+            <input class="is-checkradio is-small is-success" [checked]="checkedOrNot(7)" (click)="addFilter(7)"  id="exampleCheckboxDefault" type="checkbox" name="exampleCheckboxDefault">
+            <label for="exampleCheckboxDefault">Ακυρωμένα</label>
+          </div>
+          <div class="field">
+            <input class="is-checkradio is-small is-success" [checked]="checkedOrNot(5)" (click)="addFilter(5)" id="exampleCheckboxSuccess" type="checkbox" name="exampleCheckboxSuccess">
+            <label for="exampleCheckboxSuccess">Ολοκληρωμένα</label>
+          </div>
+          <div class="field">
+            <input class="is-checkradio is-small is-success" [checked]="checkedOrNot(999)" (click)="addFilter(999)" id="exampleCheckboxWarning" type="checkbox" name="exampleCheckboxWarning">
+            <label for="exampleCheckboxWarning">Όλα</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="has-addons is-pulled-right is-inline-flex">
+      <input class="is-small input" [(ngModel)]="data.filters.search" type="text" (keydown.enter)="getOrders()" placeholder="αναζήτη πελάτη">
+      <a class="button is-small is-info" (click)="getOrders()">
+        Εύρεση
+      </a>
+    </span>
+  </div>
+</div>

@@ -1,0 +1,188 @@
+<div class="columns is-multiline is-marginless" *ngIf="customer">
+  <div class="column is-2">
+    <div class="columns is-multiline">
+      <div class="column is-12">
+        <div class="card">
+          <!-- <div class="card-image">
+            <figure class="image is-3by2">
+              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+            </figure>
+          </div> -->
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">{{customer.lastname}} {{customer.firstname}}</p>
+                <p class="subtitle is-6">{{customer.email}}</p>
+              </div>
+            </div>
+            <div class="content">
+              <div class="">
+                <label class="label is-small is-marginless">Τηλέφωνο</label>
+                <div class="control">
+                  <input class="input is-paddingless is-static" value="{{customer.telephone}}" type="text">
+                </div>
+              </div>
+              <div class="">
+                <label class="label is-small is-marginless">Δημιουργία Λογαριασμού</label>
+                <div class="control">
+                  <input class="input is-paddingless is-static" value="{{customer.date_added|date:'dd-MM-yyyy'}}" type="text">
+                </div>
+              </div>
+              <div class="">
+                <label class="label is-small is-marginless">Στοιχεία Διεύθυνσης</label>
+                <div class="control">
+                  <input class="input is-paddingless is-static" value="{{customer.oc_Address.city}} {{customer.oc_Address.postcode}}" type="text">
+                  <input class="input is-paddingless is-static" value="{{customer.oc_Address.address_1}}" type="text">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12">
+        <nav class="panel">
+          <p class="panel-heading">
+            Παραγγελίες
+          </p>
+          <p class="panel-tabs">
+            <a class="is-active">Τρέχων</a>
+            <a>Ολοκληρωμένα</a>
+          </p>
+          <div class="panel-height">
+            <a class="panel-block is-block" [ngClass]="{'is-active': selected == i}" *ngFor="let o of customer.oc_Orders;let i = index;"
+              (click)="selectOrder(i)">
+              <span class="panel-icon">
+                <i class="fa fa-puzzle-piece"></i>
+              </span>
+              {{o.date_added|date:'dd-MM-yyyy'}}
+              <span class="is-pulled-right">{{o.order_products.length}}</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="column is-10">
+    <div class="columns is-multiline">
+      <div class="column">
+        <div class="box info-border">
+          <article class="media ">
+            <div class="media-content">
+              <div class="content">
+                <div class="has-text-centered">
+                  <i class="fa fa-truck fa-4x has-text-info" aria-hidden="true"></i>
+                </div>
+                <p class="has-text-centered">
+                  <strong class="has-text-info">ΣΥΝΟΛΟ ΠΑΡΑΓΓΕΛΙΩΝ</strong>
+                  <br>
+                  <span class="title is-5 has-text-info">{{customer.oc_Orders.length}}</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box  danger-border">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <div class="has-text-centered">
+                  <i class="fa fa-cubes fa-4x has-text-danger" aria-hidden="true"></i>
+                </div>
+                <p class="has-text-centered">
+                  <strong class="has-text-danger">ΣΥΝΟΛΟ ΠΡΟΙΟΝΤΩΝ</strong>
+                  <br>
+                  <span class="title is-5 has-text-danger">{{totalProducts()}}</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box primary-border">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <div class="has-text-centered">
+                  <i class="fa fa-truck fa-4x has-text-primary" aria-hidden="true"></i>
+                </div>
+                <p class="has-text-centered">
+                  <strong class="has-text-primary">ΣΥΝΟΛΟ ΠΑΡΑΓΓΕΛΙΩΝ</strong>
+                  <br>
+                  <span class="title is-5 has-text-primary">{{customer.oc_Orders.length}}</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box success-border">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <div class="has-text-centered">
+                  <i class="fa fa-money fa-4x has-text-success" aria-hidden="true"></i>
+                </div>
+                <p class="has-text-centered">
+                  <strong class="has-text-success">ΣΥΝΟΛΟ ΠΛΗΡΩΜΩΝ</strong>
+                  <br>
+                  <span class="title is-5 has-text-success">{{totalPayments()}}</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column is-12">
+        <div class="box small-padding">
+          <article class="media">
+            <div class="media-content">
+              <div class="content is-clearfix">
+                <div class="tags has-addons is-marginless is-pulled-left ">
+                  <span class="tag is-marginless is-info">Σύνολο</span>
+                  <span class="tag is-marginless  is-primary">{{customer.oc_Orders[selected].total}} &euro;</span>
+                </div>
+                <div class="buttons is-pulled-right">
+                  <span class="button is-small is-dark">Sms</span>
+                  <span class="button is-small is-dark">Email</span>
+                  <span class="button is-small is-danger">Delete</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="box is-paddingless">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <table class="table is-fullwidth is-marginless is-striped">
+                  <thead>
+                    <tr>
+                      <th class="aa">AA</th>
+                      <th>Όνομα</th>
+                      <th>Τιμή</th>
+                      <th>Ποσότητα</th>
+                      <th>Σύνολο</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let o of customer.oc_Orders[selected].order_products;let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{o.name}}</td>
+                      <td>{{o.price}} &euro;</td>
+                      <td>{{o.quantity}}</td>
+                      <td>{{o.total}} &euro;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

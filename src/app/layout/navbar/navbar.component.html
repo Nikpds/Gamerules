@@ -1,0 +1,42 @@
+<nav class="navbar is-primary">
+  <div class="navbar-brand">
+    <a class="navbar-item" [routerLink]="['/home']">
+      <img src="../../../assets/brand.png" alt="Bulma: a modern CSS framework based on Flexbox">
+    </a>
+    <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start">
+
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Μενου
+        </a>
+
+        <div class="navbar-dropdown is-right">
+          <a class="navbar-item">
+            TODO
+          </a>
+          <a class="navbar-item">
+            TODO
+          </a>
+          <a class="navbar-item">
+            TODO
+          </a>
+          <hr class="navbar-divider">
+          <div class="navbar-item">
+            <a class="" (click)="logout()">Αποσύνδεση</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

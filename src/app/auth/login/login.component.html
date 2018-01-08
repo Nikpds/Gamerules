@@ -1,0 +1,32 @@
+<div class="loginhero"></div>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns ">
+                <div class="column is-4 is-offset-8 boxColumn">
+                    <div class="title is-1 has-text-centered">Σύνδεση</div>
+                    <!-- <figure class="image  is-64x64">
+                        <img src="../../../assets/login_icon.png">
+                    </figure> -->
+                    <div class="field">
+                        <label class="label has-text-white">Όνομα Χρήστη</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="username" type="text" placeholder="enter username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white">Κωδικός</label>
+                        <div class="control">
+                            <input class="input" (keyup.enter)="login()" [(ngModel)]="password" type="password" placeholder="enter password">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <a class="button is-primary is-block" (click)="login()">Συνδεση</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

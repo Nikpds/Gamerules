@@ -1,0 +1,109 @@
+<div class="columns is-marginless is-multiline">
+  <div class="column is-12">
+    <app-order-list-filters [data]="data" (callParent)="getOrders()"></app-order-list-filters>
+  </div>
+  <div class="column" *ngIf="data.data.length > 0">
+    <div class="box" *ngFor="let o of data.data;let in = index">
+      <article class="media">
+        <div class="media-left">
+          <strong>NO: {{o.order_id}}</strong>
+          <br>
+          <strong>{{o.date_added|date:'dd-MM-yyyy'}}</strong>
+          <div class="col-field">
+            <span class="is-grid tag is-info">{{o.lastname }} {{o.firstname}}</span>
+          </div>
+          <div class="col-field">
+            <div class="control">
+              <div class="tags has-addons">
+                <span class="tag tag-width is-primary">Tηλ</span>
+                <span class="tag is-info">{{o.telephone}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-field">
+            <div class="control">
+              <div class="tags has-addons">
+                <span class="tag tag-width is-primary">Email</span>
+                <span class="tag is-info pointer" [ngClass]="{'is-success':selectedMail == in }" ngxClipboard [cbContent]="o.email" (cbOnSuccess)="emailCopied(in)"
+                  title="{{o.email}}">{{selectedMail == in ? 'copied':'@email'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="control">
+            <div class="tags has-addons">
+              <span class="tag tag-width is-primary">Σύνολο</span>
+              <span class="tag is-warning">{{o.total}} &euro;</span>
+            </div>
+          </div>
+          <input class="is-hidden" [(ngModel)]="o.email">
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags has-addons is-small">
+                  <span class="tag">Κατάσταση</span>
+                  <span class="tag is-info">{{o.oc_OrderStatus.name}}</span>
+                </div>
+              </div>
+              <div class="control">
+                <div class="tags has-addons is-small">
+                  <span class="tag">Πληρωμή</span>
+                  <span class="tag is-info">{{o.payment_method}}</span>
+                </div>
+              </div>
+              <div class="control">
+                <div class="tags has-addons is-small">
+                  <span class="tag">Αποστολή</span>
+                  <span class="tag is-info">{{o.shipping_method}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content">
+            <table class="table is-fullwidth is-marginless is-striped">
+              <thead>
+                <tr>
+                  <th class="aa" title="Ποσότητα">Π</th>
+                  <th class="th-name">Όνομα</th>
+                  <th class="th-price">Τιμή</th>
+                  <th class="th-price">Σύνολο</th>
+                  <th>Κατάσταση</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pr of o.order_products;let i = index" class="is-unselectable">
+                  <td>{{pr.quantity}}</td>
+                  <td>
+                    <a (click)="getOrdersOfGame(pr.product_id)">{{pr.name}}</a>
+                  </td>
+                  <td>{{pr.price}} &euro;</td>
+                  <td>{{convertTotal(pr.total)}} &euro;</td>
+                  <td>
+                    <div class="select is-small" [ngClass]="{'is-info': isSelected(pr.order_product_id,o.order_id)}">
+                      <select [(ngModel)]="data.data[in].order_products[i].product_status" (click)="selectProduct(pr.order_product_id , o.order_id)">
+                        <option *ngFor="let s of status" value="{{s.id}}">{{s.description}}</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="media-right">
+          <div class="is-block">
+            <a class="button col-field is-fullwidth is-small is-dark" (click)="smsForm.openSmsForm(o.mobile,(o.lastname + ' ' + o .firstname))">SMS</a>
+            <a class="button col-field is-fullwidth is-small is-dark" (click)="emailForm.openEmailForm((o.lastname + ' ' + o .firstname), o.email)">Email</a>
+            <a class="button col-field is-fullwidth is-small is-danger" (click)="cancelOrder(o,in)">Cancel</a>
+            <a class="button col-field is-fullwidth is-small is-success" (click)="saveOrder(o,in)">Save</a>
+            <a class="button is-fullwidth is-small is-primary" (click)="saveOrder(o,in)">Update</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+<app-order-list-modal [ordersForGame]="ordersForGame" (callParent)="closeOrders()" *ngIf="ordersForGame.length > 0"></app-order-list-modal>
+<app-email-form #emailForm></app-email-form>
+<app-sms-modal #smsForm></app-sms-modal>

@@ -1,0 +1,43 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+         {{ordersForGame.length}} Παραγγελίες για {{ordersForGame[0].name}}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content overflow-content">
+          <table class="table is-fullwidth is-marginless is-striped">
+            <thead>
+              <tr>
+                <th class="aa" title="Ποσότητα">Π</th>
+                <th class="aa" title="Ποσότητα">Κ</th>
+                <th class="th-name">Όνοματεπώνυμο</th>
+                <th class="th-date">Ημ/νια</th>
+                <th class="th-price">Σύνολο</th>
+                <th>Κατάσταση</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pr of ordersForGame;let i = index" class="is-unselectable">
+                <td>{{pr.quantity}}</td>
+                <td>{{pr.order_id}}</td>
+                <td>
+                  {{pr.oc_Order.lastname}} {{pr.oc_Order.firstname}}
+                </td>
+                <td>{{pr.oc_Order.date_added|date:'dd-MM-yyyy' }}</td>
+                <td>{{convertTotal(pr.total)}} &euro;</td>
+                <td>{{pr.product_status}} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a (click)="closeOrders()" class="card-footer-item">Κλείσιμο</a>
+      </footer>
+    </div>
+  </div>
+</div>

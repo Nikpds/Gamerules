@@ -1,0 +1,32 @@
+<nav class="main-menu" [ngClass]="{'expanded-menu': minimize}">
+  <div class="is-clearfix">
+    <i class="fa is-pulled-right sideDelete" [ngClass]="{'fa-chevron-right': !minimize, 'fa-chevron-left': minimize}" (click)="openClose()"></i>
+  </div>
+  <ul>
+    <li class="keep-height">
+      <div class="user-info">
+        <span *ngIf="minimize">
+         
+        </span>
+      </div>
+    </li>
+    <li class="has-subnav" (click)="selectMenuItem(i)" *ngFor="let item of navItems;let i = index" [ngClass]="{'selected': item.isActive}">
+      <a [routerLink]="['/home']">
+        <i class="{{item.hasIcon}} fa-2x"></i>
+        <span class="nav-text">
+          {{item.text}}
+        </span>
+      </a>
+    </li>
+  </ul>
+  <ul class="logout">
+    <li>
+      <a (click)="logout()">
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">
+          Logout
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>
